@@ -1,3 +1,0 @@
-- Fixed crashing in some specific range of devices
-
-For full list of changes, see the changelogs in the app.

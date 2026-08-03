@@ -1,4 +1,0 @@
-- Fixed few crashes
-- Various UI improvements
-
-For full details, please see the changelog.

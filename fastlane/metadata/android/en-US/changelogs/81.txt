@@ -1,2 +1,0 @@
-- Fixed critical issue that's causing the app to freeze on loading
-- New loader framework

@@ -1,2 +1,0 @@
-- Fixed unknown error in installer
-- Various other fixes and improvements

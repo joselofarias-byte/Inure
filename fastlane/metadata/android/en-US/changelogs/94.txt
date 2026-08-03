@@ -1,5 +1,0 @@
-- Fixed issues with Tags
-- Fixed various issues with Batch Extract
-- Patched a few security issues
-
-For full list of changes, see the changelogs in the app.

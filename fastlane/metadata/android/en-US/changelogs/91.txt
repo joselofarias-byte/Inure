@@ -1,5 +1,0 @@
-- Added Tags
-- Fixed some issues and crashes
-- Various improvements
-
-For full list of changes, see the changelogs in the app.

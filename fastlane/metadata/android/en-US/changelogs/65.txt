@@ -1,3 +1,0 @@
-- Fixed few Shizuku issues
-- Fixed few crashes
-- Fixed few bugs

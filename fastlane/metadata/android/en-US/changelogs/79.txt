@@ -1,3 +1,0 @@
-- New dynamic sorting framework
-- New dynamic filtering framework
-- Various fixes and improvements

@@ -1,5 +1,0 @@
-- Added Batch Trackers
-- Added Batch Profiles
-- Fixed locale issue in Tags
-
-For full list of changes, see the changelogs in the app.
