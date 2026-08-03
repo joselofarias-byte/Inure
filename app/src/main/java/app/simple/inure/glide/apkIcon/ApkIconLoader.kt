@@ -9,7 +9,7 @@ import com.bumptech.glide.signature.ObjectKey
 
 class ApkIconLoader : ModelLoader<ApkIcon, Bitmap> {
     override fun buildLoadData(apkIcon: ApkIcon, width: Int, height: Int, options: Options): ModelLoader.LoadData<Bitmap> {
-        return ModelLoader.LoadData(ObjectKey(apkIcon), ApkIconFetcher(apkIcon))
+        return ModelLoader.LoadData(ObjectKey("${apkIcon.file.absolutePath}:${apkIcon.file.lastModified()}"), ApkIconFetcher(apkIcon))
     }
 
     override fun handles(model: ApkIcon): Boolean {

@@ -37,14 +37,14 @@ jobs:
                       exit 1
                     fi
                     
-                    mkdir -p app/src/github/resources
-                    cp source_repo/resources/assets/uad_lists.json app/src/github/resources/uad_lists.json
+                    mkdir -p app/src/joselofarias/resources
+                    cp source_repo/resources/assets/uad_lists.json app/src/joselofarias/resources/uad_lists.json
 
             -   name: Commit and push (UAD lists)
                 run: |
                     set -e
-                    git add app/src/github/resources/uad_lists.json
-                    if [ -z "$(git status --porcelain app/src/github/resources/uad_lists.json)" ]; then
+                    git add app/src/joselofarias/resources/uad_lists.json
+                    if [ -z "$(git status --porcelain app/src/joselofarias/resources/uad_lists.json)" ]; then
                       echo "No changes to commit."
                       exit 0
                     fi

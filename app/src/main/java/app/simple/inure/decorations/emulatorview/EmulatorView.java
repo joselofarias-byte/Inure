@@ -1600,6 +1600,22 @@ public class EmulatorView extends View implements GestureDetector.OnGestureListe
     }
     
     /**
+     * Latch the Alt modifier for the next key press (used by the on-screen extra-keys bar).
+     */
+    public void sendAltKey() {
+        keyListener.handleAltKey(true);
+        invalidate();
+    }
+    
+    /**
+     * Latch the Shift modifier for the next key press (used by the on-screen extra-keys bar).
+     */
+    public void sendShiftKey() {
+        keyListener.handleShiftKey(true);
+        invalidate();
+    }
+    
+    /**
      * Accept links that start with http[s]:
      */
     private static class HttpMatchFilter implements MatchFilter {

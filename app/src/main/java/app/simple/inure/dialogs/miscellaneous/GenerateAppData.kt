@@ -121,7 +121,7 @@ class GenerateAppData : ScopedBottomSheetFragment() {
                 FlagUtils.unsetFlag(sourceFlags, GeneratedDataPreferences.PLAY_STORE)
             }
 
-            if (AppUtils.isGithubFlavor() || AppUtils.isBetaFlavor()) {
+            if (AppUtils.isJoseloFariasFlavor() || AppUtils.isBetaFlavor()) {
                 sourceFlags = if (checkedIds.contains(R.id.fdroid)) {
                     FlagUtils.setFlag(sourceFlags, GeneratedDataPreferences.FDROID)
                 } else {

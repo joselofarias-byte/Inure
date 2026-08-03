@@ -310,7 +310,8 @@ class HomeViewModel(application: Application) :
                 list.add(Pair(R.drawable.ic_adb, R.string.APKs))
             }
 
-            if (AppUtils.isGithubFlavor() || AppUtils.isBetaFlavor()) {
+
+            if (AppUtils.isJoseloFariasFlavor() || AppUtils.isBetaFlavor()) {
                 if (ConfigurationPreferences.isUsingRoot() || ConfigurationPreferences.isUsingShizuku()) {
                     list.add(Pair(R.drawable.ic_recycling, R.string.debloat))
                 }

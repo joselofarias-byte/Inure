@@ -12,18 +12,14 @@ object AppUtils {
     const val UNLOCKER_PACKAGE_NAME = "app.simple.inureunlocker"
     const val RECEIVER_PACKAGE_NAME = "$UNLOCKER_PACKAGE_NAME.receivers.LicenceVerificationReceiver"
 
-    /**
-     * Returns true if the flavor is play store
-     */
-    fun isPlayFlavor(): Boolean {
-        return BuildConfig.FLAVOR == "play"
-    }
+    /** The Play flavor was removed from the JoseloFarias fork. */
+    fun isPlayFlavor(): Boolean = false
 
     /**
-     * Returns true if the flavor is fdroid or github
+     * Returns true for the JoseloFarias fork flavor
      */
-    fun isGithubFlavor(): Boolean {
-        return BuildConfig.FLAVOR == "github"
+    fun isJoseloFariasFlavor(): Boolean {
+        return BuildConfig.FLAVOR == "joselofarias"
     }
 
     /**

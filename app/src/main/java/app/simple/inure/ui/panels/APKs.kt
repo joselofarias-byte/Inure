@@ -380,7 +380,7 @@ class APKs : ScopedFragment() {
                 apkBrowserViewModel.sort()
             }
 
-            ApkBrowserPreferences.EXTERNAL_STORAGE -> {
+            ApkBrowserPreferences.SCAN_FOLDERS -> {
                 apkBrowserViewModel.refresh()
                 apkScanner = childFragmentManager.showApkScanner()
             }

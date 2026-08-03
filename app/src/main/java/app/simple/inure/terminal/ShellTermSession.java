@@ -150,10 +150,10 @@ public class ShellTermSession extends GenericTermSession {
                 if (Shizuku.pingBinder()) {
                     write(ShizukuUtils.getRishCommand() + '\r');
                 } else {
-                    write("clear && echo Cannot start RISH, Shizuku is not running!" + '\r');
+                    write("clear && echo 'rish no está disponible para esta sesión (Shizuku no está en ejecución). Podés seguir usando el shell normal.'" + '\r');
                 }
             } else {
-                write("clear && echo Shizuku is not enabled!" + '\r');
+                write("clear && echo 'rish no está disponible para esta sesión (Shizuku no está habilitado). Podés seguir usando el shell normal.'" + '\r');
             }
         }
         

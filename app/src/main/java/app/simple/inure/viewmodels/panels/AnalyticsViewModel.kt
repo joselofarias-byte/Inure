@@ -201,10 +201,10 @@ class AnalyticsViewModel(application: Application) : PackageUtilsViewModel(appli
             val algorithms = hashMapOf<String, Int>()
 
             for (app in apps) {
-                try {
-                    val signatures = APKCertificateUtils(
-                            app.safeApplicationInfo.sourceDir.toFile(), app.packageName, applicationContext()).x509Certificates!!
+                val signatures = APKCertificateUtils(
+                        app.safeApplicationInfo.sourceDir.toFile(), app.packageName, applicationContext()).x509Certificates!!
 
+                try {
                     for (signature in signatures) {
                         val algorithm = signature.sigAlgName
                         if (algorithms.containsKey(algorithm)) {

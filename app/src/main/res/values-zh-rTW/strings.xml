@@ -796,5 +796,4 @@
     <string name="foreground">前景</string>
     <string name="granted_by_default">預設授予</string>
     <string name="user_set">使用者設定</string>
-    <string name="other_apps">其他應用程式</string>
 </resources>

@@ -32,10 +32,6 @@ object PermissionUtils {
         return mode == AppOpsManagerCompat.MODE_ALLOWED
     }
 
-    fun Context.checkDumpPermission(): Boolean {
-        return hasPermission(this, Manifest.permission.DUMP)
-    }
-
     fun Context.checkStoragePermission(): Boolean {
         return areStoragePermissionsGranted()
     }

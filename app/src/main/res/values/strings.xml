@@ -795,10 +795,28 @@
     <string name="foreground">Foreground</string>
     <string name="granted_by_default">Granted By Default</string>
     <string name="user_set">User Set</string>
-    <string name="other_apps">Other Apps</string>
     <string name="export_icon">Export Icon</string>
-    <string name="public_source_dir">Public Source Directory</string>
-    <string name="device_protected_data_dir">Device-Protected Data Directory</string>
-    <string name="external_data_dir">External Data Directory</string>
-    <string name="recent_exits">Recent Exits</string>
+    <string name="scan_folders">APK scan folders</string>
+    <string name="scan_folders_desc">Only selected folders are scanned. Tap to add another folder.</string>
+    <string name="scan_folders_none">No scan folders selected</string>
+    <string name="scan_folder_invalid">The selected folder cannot be accessed as a local storage path.</string>
+    <string name="clear_scan_folders">Clear scan folders</string>
+
+    <!-- Terminal extra keys -->
+    <string name="term_key_esc">Escape</string>
+    <string name="term_key_tab">Tab</string>
+    <string name="term_key_ctrl">Control</string>
+    <string name="term_key_alt">Alt</string>
+    <string name="term_key_shift">Shift</string>
+    <string name="term_key_left">Flecha izquierda</string>
+    <string name="term_key_up">Flecha arriba</string>
+    <string name="term_key_down">Flecha abajo</string>
+    <string name="term_key_right">Flecha derecha</string>
+    <string name="shizuku_no_response_title">Shizuku no respondió</string>
+    <string name="shizuku_no_response_message">No se pudo iniciar rish porque Shizuku no respondió. Podés reintentar o abrir Shizuku. El shell normal sigue disponible.</string>
+    <string name="shizuku_retry">Reintentar</string>
+    <string name="shizuku_open">Abrir Shizuku</string>
+    <string name="open_with">Open with</string>
+    <string name="move">Move</string>
+    <string name="rename">Rename</string>
 </resources>

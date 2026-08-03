@@ -1,3 +1,5 @@
+> **JoseloFarias fork:** independent GPLv3 build with package `app.simple.inure.joselofarias`, no Play flavor, persistent full feature access, selected-folder APK scanning, and a soft-green launcher icon. See [FORK_NOTICE.md](FORK_NOTICE.md).
+
 ![Banner](assets/images/banner.png)
 
 # Inure App Manager

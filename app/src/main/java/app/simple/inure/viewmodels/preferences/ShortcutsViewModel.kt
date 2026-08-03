@@ -82,7 +82,7 @@ class ShortcutsViewModel(application: Application) : WrappedViewModel(applicatio
                 }
             }
 
-            if (AppUtils.isGithubFlavor() || AppUtils.isBetaFlavor()) {
+            if (AppUtils.isJoseloFariasFlavor() || AppUtils.isBetaFlavor()) {
                 Shortcut(R.drawable.sc_recycling, DEBLOAT_ID, DEBLOAT_ACTION, R.string.debloat).also {
                     list.add(it)
                 }

@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+cd "$ROOT"
+echo "===== LOW TOKEN PROJECT CONTEXT ====="
+echo "Repo: $(basename "$ROOT")"
+echo
+echo "Rules:"
+if [ -f ".tbm_rules" ]; then
+  cat ".tbm_rules"
+elif [ -f ".ai/rules.md" ]; then
+  cat ".ai/rules.md"
+else
+  echo "- No hacer commit sin confirmación."
+  echo "- No leer .ai/archive ni /root/.tbm/ai-archive salvo pedido explícito."
+  echo "- No leer archivos grandes completos."
+  echo "- No usar cat en archivos grandes."
+  echo "- Usar sed -n con rangos cortos, máximo 120 líneas."
+  echo "- Cambios pequeños: 1-2 archivos por iteración."
+fi
+echo
+echo "===== STATUS ====="
+git status --short 2>/dev/null || true
+echo
+echo "===== DIFF CHECK ====="
+git diff --check 2>/dev/null || true
+echo
+echo "===== DIFF STAT ====="
+git diff --stat 2>/dev/null || true
+echo
+echo "===== RECENT COMMITS ====="
+git log --oneline -5 2>/dev/null || true
+echo
+echo "===== COMPACT INDEX ====="
+sed -n '1,220p' .ai/index/repo_index.md 2>/dev/null || true
