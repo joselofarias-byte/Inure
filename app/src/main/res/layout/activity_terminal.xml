@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/app_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -75,6 +76,155 @@
     <app.simple.inure.terminal.TermViewFlipper
         android:id="@+id/view_flipper"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <app.simple.inure.decorations.theme.ThemeDivider
+        android:layout_width="match_parent"
+        android:layout_height="1px" />
+
+    <HorizontalScrollView
+        android:id="@+id/extra_keys_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="false"
+        android:scrollbars="none">
+
+        <app.simple.inure.decorations.theme.ThemeLinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp">
+
+            <app.simple.inure.decorations.ripple.DynamicRippleTextView
+                android:id="@+id/key_esc"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_margin="2dp"
+                android:contentDescription="@string/term_key_esc"
+                android:gravity="center"
+                android:minWidth="48dp"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:text="ESC"
+                android:textSize="@dimen/popup_text_size"
+                app:textColorStyle="primary" />
+
+            <app.simple.inure.decorations.ripple.DynamicRippleTextView
+                android:id="@+id/key_tab"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_margin="2dp"
+                android:contentDescription="@string/term_key_tab"
+                android:gravity="center"
+                android:minWidth="48dp"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:text="TAB"
+                android:textSize="@dimen/popup_text_size"
+                app:textColorStyle="primary" />
+
+            <app.simple.inure.decorations.ripple.DynamicRippleTextView
+                android:id="@+id/key_ctrl"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_margin="2dp"
+                android:contentDescription="@string/term_key_ctrl"
+                android:gravity="center"
+                android:minWidth="48dp"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:text="CTRL"
+                android:textSize="@dimen/popup_text_size"
+                app:textColorStyle="primary" />
+
+            <app.simple.inure.decorations.ripple.DynamicRippleTextView
+                android:id="@+id/key_alt"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_margin="2dp"
+                android:contentDescription="@string/term_key_alt"
+                android:gravity="center"
+                android:minWidth="48dp"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:text="ALT"
+                android:textSize="@dimen/popup_text_size"
+                app:textColorStyle="primary" />
+
+            <app.simple.inure.decorations.ripple.DynamicRippleTextView
+                android:id="@+id/key_shift"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_margin="2dp"
+                android:contentDescription="@string/term_key_shift"
+                android:gravity="center"
+                android:minWidth="48dp"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:text="SHIFT"
+                android:textSize="@dimen/popup_text_size"
+                app:textColorStyle="primary" />
+
+            <app.simple.inure.decorations.ripple.DynamicRippleTextView
+                android:id="@+id/key_left"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_margin="2dp"
+                android:contentDescription="@string/term_key_left"
+                android:gravity="center"
+                android:minWidth="48dp"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:text="←"
+                android:textSize="@dimen/popup_text_size"
+                app:textColorStyle="primary" />
+
+            <app.simple.inure.decorations.ripple.DynamicRippleTextView
+                android:id="@+id/key_up"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_margin="2dp"
+                android:contentDescription="@string/term_key_up"
+                android:gravity="center"
+                android:minWidth="48dp"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:text="↑"
+                android:textSize="@dimen/popup_text_size"
+                app:textColorStyle="primary" />
+
+            <app.simple.inure.decorations.ripple.DynamicRippleTextView
+                android:id="@+id/key_down"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_margin="2dp"
+                android:contentDescription="@string/term_key_down"
+                android:gravity="center"
+                android:minWidth="48dp"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:text="↓"
+                android:textSize="@dimen/popup_text_size"
+                app:textColorStyle="primary" />
+
+            <app.simple.inure.decorations.ripple.DynamicRippleTextView
+                android:id="@+id/key_right"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_margin="2dp"
+                android:contentDescription="@string/term_key_right"
+                android:gravity="center"
+                android:minWidth="48dp"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:text="→"
+                android:textSize="@dimen/popup_text_size"
+                app:textColorStyle="primary" />
+
+        </app.simple.inure.decorations.theme.ThemeLinearLayout>
+
+    </HorizontalScrollView>
 
 </LinearLayout>

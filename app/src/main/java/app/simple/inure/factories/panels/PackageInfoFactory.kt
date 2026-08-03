@@ -19,7 +19,6 @@ import app.simple.inure.viewmodels.viewers.OperationsViewModel
 import app.simple.inure.viewmodels.viewers.PermissionsViewModel
 import app.simple.inure.viewmodels.viewers.ProvidersViewModel
 import app.simple.inure.viewmodels.viewers.ReceiversViewModel
-import app.simple.inure.viewmodels.viewers.RecentExitsViewModel
 import app.simple.inure.viewmodels.viewers.ServicesViewModel
 import app.simple.inure.viewmodels.viewers.SharedLibrariesViewModel
 import app.simple.inure.viewmodels.viewers.SharedPreferencesViewModel
@@ -88,9 +87,6 @@ class PackageInfoFactory(private val packageInfo: PackageInfo, private val keywo
             }
             modelClass.isAssignableFrom(BootViewModel::class.java) -> {
                 return BootViewModel(application, packageInfo) as T
-            }
-            modelClass.isAssignableFrom(RecentExitsViewModel::class.java) -> {
-                return RecentExitsViewModel(application, packageInfo) as T
             }
             else -> {
                 throw IllegalArgumentException("Nope!!, Wrong Viewmodel!!")

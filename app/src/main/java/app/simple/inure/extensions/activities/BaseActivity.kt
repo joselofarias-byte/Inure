@@ -197,7 +197,6 @@ open class BaseActivity : AppCompatActivity(),
                     StackTraceDatabase.init(applicationContext)
 
                     if (SDCard.findSdCardPath(applicationContext).isNull()) {
-                        ApkBrowserPreferences.setExternalStorage(false)
                         ConfigurationPreferences.setExternalStorage(false)
 
                         Log.d("BaseActivity", "No external storage found")

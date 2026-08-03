@@ -43,8 +43,8 @@ class AppIconModule : AppGlideModule() {
             requestOptions.diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
         }
 
-        requestOptions.fallback(R.drawable.ic_app_icon)
-        requestOptions.error(R.drawable.ic_app_icon)
+        requestOptions.fallback(R.drawable.ic_app_icon_placeholder)
+        requestOptions.error(R.drawable.ic_app_icon_placeholder)
 
         requestOptions.transform(
                 Padding(BlurShadow.MAX_BLUR_RADIUS.toInt()),

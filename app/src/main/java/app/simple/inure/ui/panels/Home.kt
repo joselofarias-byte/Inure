@@ -190,6 +190,7 @@ class Home : ScopedFragment() {
                             openFragmentArc(APKs.newInstance(), icon, APKs.TAG)
                         }
 
+
                         // Header
 
                         R.string.app_name -> {

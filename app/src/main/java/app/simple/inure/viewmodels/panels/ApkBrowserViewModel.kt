@@ -1,7 +1,6 @@
 package app.simple.inure.viewmodels.panels
 
 import android.app.Application
-import android.os.Environment
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,9 +12,10 @@ import app.simple.inure.preferences.ApkBrowserPreferences
 import app.simple.inure.util.ConditionUtils.invert
 import app.simple.inure.util.DateUtils.toDate
 import app.simple.inure.util.FlagUtils
-import app.simple.inure.util.SDCard
 import app.simple.inure.util.SortApks.getSortedList
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 import java.io.File
 
@@ -24,6 +24,8 @@ class ApkBrowserViewModel(application: Application) : WrappedViewModel(applicati
     var keywords = ""
 
     private var files = ArrayList<ApkFile>()
+    private var scanJob: Job? = null
+    @Volatile private var scanCompleted = false
 
     private val pathData: MutableLiveData<ArrayList<ApkFile>> by lazy {
         MutableLiveData<ArrayList<ApkFile>>().also {
@@ -54,64 +56,55 @@ class ApkBrowserViewModel(application: Application) : WrappedViewModel(applicati
     }
 
     fun shouldShowLoader(): Boolean {
-        return pathData.value.isNullOrEmpty()
+        return !scanCompleted
     }
 
     private fun loadApkPaths() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val externalStoragePaths: ArrayList<File?> = if (ApkBrowserPreferences.isExternalStorage()) {
-                arrayListOf(Environment.getExternalStorageDirectory(), SDCard.findSdCardPath(applicationContext()))
-            } else {
-                arrayListOf(Environment.getExternalStorageDirectory())
-            }
+        scanJob?.cancel()
+        scanCompleted = false
+        scanJob = viewModelScope.launch(Dispatchers.IO) {
+            val roots = ApkBrowserPreferences.getScanFolders()
+                .map(::File)
+                .filter { it.exists() && it.isDirectory && it.canRead() }
+                .distinctBy { file ->
+                    runCatching { file.canonicalPath }.getOrElse { file.absolutePath }
+                }
 
             val apkPaths = ArrayList<ApkFile>()
+            val seenPaths = HashSet<String>()
             files.clear()
 
-            externalStoragePaths.forEach { path ->
-                path?.walkTopDown()!!.forEach {
-                    info.postValue(it.absolutePath.substringBeforeLast("/"))
+            for (root in roots) {
+                ensureActive()
+                root.walkTopDown()
+                    .onFail { file, error -> Log.w("ApkBrowserViewModel", "Cannot scan ${file.absolutePath}", error) }
+                    .forEach { candidate ->
+                        ensureActive()
+                        info.postValue(if (candidate.isDirectory) candidate.absolutePath else candidate.parent.orEmpty())
+                        if (!candidate.isFile) return@forEach
 
-                    if (FlagUtils.isFlagSet(ApkBrowserPreferences.getApkFilter(), SortConstant.APKS_APK) && it.extension == "apk") {
-                        apkPaths.add(ApkFile(it))
-                    }
+                        val extension = candidate.extension.lowercase()
+                        if (extension !in setOf("apk", "apks", "apkm", "xapk")) return@forEach
+                        val canonical = runCatching { candidate.canonicalPath }.getOrElse { candidate.absolutePath }
+                        if (!seenPaths.add(canonical)) return@forEach
 
-                    if (FlagUtils.isFlagSet(ApkBrowserPreferences.getApkFilter(), SortConstant.APKS_APKS) && it.extension == "apks") {
-                        apkPaths.add(ApkFile(it))
+                        val apkFile = ApkFile(candidate)
+                        files.add(apkFile)
+                        when (extension) {
+                            "apk" -> if (FlagUtils.isFlagSet(ApkBrowserPreferences.getApkFilter(), SortConstant.APKS_APK)) apkPaths.add(apkFile)
+                            "apks" -> if (FlagUtils.isFlagSet(ApkBrowserPreferences.getApkFilter(), SortConstant.APKS_APKS)) apkPaths.add(apkFile)
+                            "apkm" -> if (FlagUtils.isFlagSet(ApkBrowserPreferences.getApkFilter(), SortConstant.APKS_APKM)) apkPaths.add(apkFile)
+                            "xapk" -> if (FlagUtils.isFlagSet(ApkBrowserPreferences.getApkFilter(), SortConstant.APKS_XAPK)) apkPaths.add(apkFile)
+                        }
                     }
-
-                    if (FlagUtils.isFlagSet(ApkBrowserPreferences.getApkFilter(), SortConstant.APKS_APKM) && it.extension == "apkm") {
-                        apkPaths.add(ApkFile(it))
-                    }
-
-                    if (FlagUtils.isFlagSet(ApkBrowserPreferences.getApkFilter(), SortConstant.APKS_XAPK) && it.extension == "xapk") {
-                        apkPaths.add(ApkFile(it))
-                    }
-
-                    if (it.isFile && it.extension == "apk" || it.extension == "apks" || it.extension == "apkm" || it.extension == "xapk") {
-                        files.add(ApkFile(it)) // backup for filtering
-                    }
-                }
             }
 
             if (FlagUtils.isFlagSet(ApkBrowserPreferences.getApkFilter(), SortConstant.APKS_HIDDEN).invert()) {
-                val mediaPaths = ArrayList<ApkFile>()
-
-                for (file in apkPaths) {
-                    if (file.file.absolutePath.split("/").any { it.startsWith(".") }.invert()) {
-                        mediaPaths.add(file)
-                    }
-                }
-
-                apkPaths.clear()
-
-                for (file in mediaPaths) {
-                    apkPaths.add(file)
-                }
+                apkPaths.removeAll { file -> file.file.absolutePath.split("/").any { it.startsWith(".") } }
             }
 
             apkPaths.getSortedList(ApkBrowserPreferences.getSortStyle(), ApkBrowserPreferences.isReverseSorting())
-
+            scanCompleted = true
             pathData.postValue(apkPaths)
         }
     }

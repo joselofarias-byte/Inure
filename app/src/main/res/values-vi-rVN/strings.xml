@@ -796,6 +796,5 @@
     <string name="foreground">Nền trước</string>
     <string name="granted_by_default">Được cấp theo mặc định</string>
     <string name="user_set">Bộ người dùng</string>
-    <string name="other_apps">Các ứng dụng khác</string>
     <string name="export_icon">Xuất biểu tượng</string>
 </resources>

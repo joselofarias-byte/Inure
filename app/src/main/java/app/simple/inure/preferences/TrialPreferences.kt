@@ -1,6 +1,7 @@
 package app.simple.inure.preferences
 
 import android.annotation.SuppressLint
+import app.simple.inure.BuildConfig
 import app.simple.inure.util.AppUtils
 import app.simple.inure.util.CalendarUtils
 import java.util.Date
@@ -32,6 +33,7 @@ object TrialPreferences {
     // ---------------------------------------------------------------------------------------------------------- //
 
     fun getDaysLeft(): Int {
+        if (BuildConfig.JOSELOFARIAS_UNLOCKED) return 0
         return kotlin.runCatching {
             MAX_TRIAL_DAYS - CalendarUtils.getDaysBetweenTwoDates(Date(getFirstLaunchDate()), CalendarUtils.getToday())
                 .coerceAtLeast(0).coerceAtMost(MAX_TRIAL_DAYS)
@@ -49,32 +51,36 @@ object TrialPreferences {
 
     fun setFullVersion(value: Boolean): Boolean {
         return SharedPreferences.getEncryptedSharedPreferences().edit()
-            .putBoolean(IS_APP_FULL_VERSION_ENABLED, value).commit()
+            .putBoolean(IS_APP_FULL_VERSION_ENABLED, value || BuildConfig.JOSELOFARIAS_UNLOCKED).commit()
     }
 
     inline fun isAppFullVersionEnabled(): Boolean {
+        if (BuildConfig.JOSELOFARIAS_UNLOCKED) return true
         return SharedPreferences.getEncryptedSharedPreferences().getBoolean(IS_APP_FULL_VERSION_ENABLED, false) ||
                 CalendarUtils.getDaysBetweenTwoDates(Date(getFirstLaunchDate()), CalendarUtils.getToday()) <= MAX_TRIAL_DAYS
     }
 
     fun isWithinTrialPeriod(): Boolean {
+        if (BuildConfig.JOSELOFARIAS_UNLOCKED) return true
         return CalendarUtils.getDaysBetweenTwoDates(Date(getFirstLaunchDate()), CalendarUtils.getToday()) <= MAX_TRIAL_DAYS
     }
 
     fun isTrialWithoutFull(): Boolean {
+        if (BuildConfig.JOSELOFARIAS_UNLOCKED) return false
         return CalendarUtils.getDaysBetweenTwoDates(Date(getFirstLaunchDate()), CalendarUtils.getToday()) <= MAX_TRIAL_DAYS
                 && !isAppFullVersionEnabled()
     }
 
     fun isFullVersion(): Boolean {
-        return SharedPreferences.getEncryptedSharedPreferences().getBoolean(IS_APP_FULL_VERSION_ENABLED, false)
+        return BuildConfig.JOSELOFARIAS_UNLOCKED ||
+                SharedPreferences.getEncryptedSharedPreferences().getBoolean(IS_APP_FULL_VERSION_ENABLED, false)
     }
 
     // ---------------------------------------------------------------------------------------------------------- //
 
     fun reset() {
         setFirstLaunchDate(-1)
-        setFullVersion(false)
+        setFullVersion(BuildConfig.JOSELOFARIAS_UNLOCKED)
     }
 
     fun migrateLegacy() {
@@ -100,20 +106,25 @@ object TrialPreferences {
     // ---------------------------------------------------------------------------------------------------------- //
 
     fun setHasLicenceKey(hasLicence: Boolean) {
-        SharedPreferences.getEncryptedSharedPreferences().edit().putBoolean(HAS_LICENSE_KEY, hasLicence).apply()
+        SharedPreferences.getEncryptedSharedPreferences().edit()
+            .putBoolean(HAS_LICENSE_KEY, hasLicence || BuildConfig.JOSELOFARIAS_UNLOCKED).apply()
     }
 
     fun hasLicenceKey(): Boolean {
-        return SharedPreferences.getEncryptedSharedPreferences().getBoolean(HAS_LICENSE_KEY, false)
+        return BuildConfig.JOSELOFARIAS_UNLOCKED ||
+                SharedPreferences.getEncryptedSharedPreferences().getBoolean(HAS_LICENSE_KEY, false)
     }
 
     // ---------------------------------------------------------------------------------------------------------- //
 
     fun setUnlockerVerificationRequired(value: Boolean): Boolean {
-        return SharedPreferences.getEncryptedSharedPreferences().edit().putBoolean(IS_UNLOCKER_VERIFICATION_REQUIRED, value).commit()
+        val effectiveValue = if (BuildConfig.JOSELOFARIAS_UNLOCKED) false else value
+        return SharedPreferences.getEncryptedSharedPreferences().edit()
+            .putBoolean(IS_UNLOCKER_VERIFICATION_REQUIRED, effectiveValue).commit()
     }
 
     fun isUnlockerVerificationRequired(): Boolean {
+        if (BuildConfig.JOSELOFARIAS_UNLOCKED) return false
         return SharedPreferences.getEncryptedSharedPreferences().getBoolean(IS_UNLOCKER_VERIFICATION_REQUIRED, true) || AppUtils.isPlayFlavor()
     }
 

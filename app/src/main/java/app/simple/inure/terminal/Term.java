@@ -46,7 +46,10 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import app.simple.inure.R;
 import app.simple.inure.activities.preferences.PreferenceActivity;
@@ -94,6 +97,11 @@ public class Term extends BaseActivity implements UpdateCallback,
     @SuppressWarnings ("unused")
     private ImageView icon;
     private FrameLayout content;
+    
+    private View extraKeyCtrl;
+    private View extraKeyAlt;
+    private View extraKeyShift;
+    private static final float MODIFIER_IDLE_ALPHA = 0.55f;
     
     private SessionList termSessions;
     private AdapterWindows adapterWindows;
@@ -225,6 +233,8 @@ public class Term extends BaseActivity implements UpdateCallback,
             });
             
             viewFlipper.onResume();
+            Log.d("TERM_PERF", "TERM_SESSION_READY " + System.currentTimeMillis());
+            maybeShowShizukuUnavailable();
         }
     }
     
@@ -258,6 +268,7 @@ public class Term extends BaseActivity implements UpdateCallback,
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("TERM_PERF", "TERM_OPEN_START " + System.currentTimeMillis());
         WindowCompat.setDecorFitsSystemWindows(getWindow(), true);
         getWindow().setStatusBarColor(ThemeManager.INSTANCE.getTheme().getViewGroupTheme().getBackground());
         
@@ -309,6 +320,20 @@ public class Term extends BaseActivity implements UpdateCallback,
         content = findViewById(android.R.id.content);
         
         content.setBackgroundColor(ThemeManager.INSTANCE.getTheme().getViewGroupTheme().getBackground());
+        
+        final View appContainer = findViewById(R.id.app_container);
+        ViewCompat.setOnApplyWindowInsetsListener(appContainer, (v, insets) -> {
+            Insets bars = insets.getInsets(
+                    WindowInsetsCompat.Type.systemBars()
+                            | WindowInsetsCompat.Type.displayCutout());
+            int imeBottom = insets.getInsets(WindowInsetsCompat.Type.ime()).bottom;
+            v.setPadding(bars.left, bars.top, bars.right, Math.max(bars.bottom, imeBottom));
+            return insets;
+        });
+        ViewCompat.requestApplyInsets(appContainer);
+        Log.d("TERM_PERF", "TERM_UI_VISIBLE " + System.currentTimeMillis());
+        
+        setupExtraKeysBar();
         
         //noinspection CodeBlock2Expr
         add.setOnClickListener(v -> {
@@ -972,6 +997,139 @@ public class Term extends BaseActivity implements UpdateCallback,
     
     private void doSendFnKey() {
         getCurrentEmulatorView().sendFnKey();
+    }
+    
+    private void setupExtraKeysBar() {
+        final View keyEsc = findViewById(R.id.key_esc);
+        if (keyEsc == null) {
+            return;
+        }
+        final View keyTab = findViewById(R.id.key_tab);
+        final View keyCtrl = findViewById(R.id.key_ctrl);
+        final View keyAlt = findViewById(R.id.key_alt);
+        final View keyShift = findViewById(R.id.key_shift);
+        final View keyLeft = findViewById(R.id.key_left);
+        final View keyUp = findViewById(R.id.key_up);
+        final View keyDown = findViewById(R.id.key_down);
+        final View keyRight = findViewById(R.id.key_right);
+        
+        extraKeyCtrl = keyCtrl;
+        extraKeyAlt = keyAlt;
+        extraKeyShift = keyShift;
+        
+        keyEsc.setOnClickListener(v -> sendTerminalKeyCode(KeyEvent.KEYCODE_ESCAPE));
+        keyTab.setOnClickListener(v -> sendTerminalKeyCode(KeyEvent.KEYCODE_TAB));
+        keyLeft.setOnClickListener(v -> sendTerminalKeyCode(KeyEvent.KEYCODE_DPAD_LEFT));
+        keyUp.setOnClickListener(v -> sendTerminalKeyCode(KeyEvent.KEYCODE_DPAD_UP));
+        keyDown.setOnClickListener(v -> sendTerminalKeyCode(KeyEvent.KEYCODE_DPAD_DOWN));
+        keyRight.setOnClickListener(v -> sendTerminalKeyCode(KeyEvent.KEYCODE_DPAD_RIGHT));
+        
+        keyCtrl.setAlpha(MODIFIER_IDLE_ALPHA);
+        keyAlt.setAlpha(MODIFIER_IDLE_ALPHA);
+        keyShift.setAlpha(MODIFIER_IDLE_ALPHA);
+        
+        keyCtrl.setOnClickListener(v -> {
+            EmulatorView view = getCurrentEmulatorView();
+            if (view == null) {
+                return;
+            }
+            view.sendControlKey();
+            armModifierVisual(keyCtrl);
+        });
+        keyAlt.setOnClickListener(v -> {
+            EmulatorView view = getCurrentEmulatorView();
+            if (view == null) {
+                return;
+            }
+            view.sendAltKey();
+            armModifierVisual(keyAlt);
+        });
+        keyShift.setOnClickListener(v -> {
+            EmulatorView view = getCurrentEmulatorView();
+            if (view == null) {
+                return;
+            }
+            view.sendShiftKey();
+            armModifierVisual(keyShift);
+        });
+    }
+    
+    private void sendTerminalKeyCode(int keyCode) {
+        EmulatorView view = getCurrentEmulatorView();
+        if (view == null) {
+            return;
+        }
+        long now = android.os.SystemClock.uptimeMillis();
+        KeyEvent down = new KeyEvent(now, now, KeyEvent.ACTION_DOWN, keyCode, 0);
+        view.onKeyDown(keyCode, down);
+        KeyEvent up = new KeyEvent(now, now, KeyEvent.ACTION_UP, keyCode, 0);
+        view.onKeyUp(keyCode, up);
+        resetModifierVisuals();
+    }
+    
+    private void armModifierVisual(View modifier) {
+        boolean armed = modifier.getAlpha() >= 1f;
+        modifier.setAlpha(armed ? MODIFIER_IDLE_ALPHA : 1f);
+    }
+    
+    private void resetModifierVisuals() {
+        if (extraKeyCtrl != null) {
+            extraKeyCtrl.setAlpha(MODIFIER_IDLE_ALPHA);
+        }
+        if (extraKeyAlt != null) {
+            extraKeyAlt.setAlpha(MODIFIER_IDLE_ALPHA);
+        }
+        if (extraKeyShift != null) {
+            extraKeyShift.setAlpha(MODIFIER_IDLE_ALPHA);
+        }
+    }
+    
+    private void maybeShowShizukuUnavailable() {
+        boolean usingRish = ShellPreferences.INSTANCE.isUsingRISH();
+        boolean usingShizuku = app.simple.inure.preferences.ConfigurationPreferences.INSTANCE.isUsingShizuku();
+        if (!usingRish || !usingShizuku) {
+            return;
+        }
+        
+        boolean shizukuAlive;
+        try {
+            shizukuAlive = rikka.shizuku.Shizuku.pingBinder();
+        } catch (Throwable t) {
+            shizukuAlive = false;
+        }
+        if (shizukuAlive) {
+            return;
+        }
+        
+        if (isFinishing()) {
+            return;
+        }
+        
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle(R.string.shizuku_no_response_title)
+                .setMessage(R.string.shizuku_no_response_message)
+                .setPositiveButton(R.string.shizuku_retry, (dialog, which) -> doCreateNewWindow(false))
+                .setNeutralButton(R.string.shizuku_open, (dialog, which) -> openShizukuApp())
+                .setNegativeButton(R.string.cancel, null)
+                .show();
+    }
+    
+    private void openShizukuApp() {
+        final String shizukuPackage = "moe.shizuku.privileged.api";
+        Intent launch = getPackageManager().getLaunchIntentForPackage(shizukuPackage);
+        if (launch != null) {
+            launch.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(launch);
+            return;
+        }
+        try {
+            Intent market = new Intent(Intent.ACTION_VIEW,
+                    android.net.Uri.parse("market://details?id=" + shizukuPackage));
+            market.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(market);
+        } catch (Exception e) {
+            Toast.makeText(this, R.string.shizuku_open, Toast.LENGTH_SHORT).show();
+        }
     }
     
     private void toggleSoftKeyboard() {

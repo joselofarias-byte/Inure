@@ -9,7 +9,7 @@ import com.bumptech.glide.signature.ObjectKey
 
 class AppIconLoader : ModelLoader<AppIcon, Bitmap> {
     override fun buildLoadData(appIcon: AppIcon, width: Int, height: Int, options: Options): ModelLoader.LoadData<Bitmap> {
-        return ModelLoader.LoadData(ObjectKey(appIcon), AppIconFetcher(appIcon))
+        return ModelLoader.LoadData(ObjectKey("${appIcon.packageName}:${appIcon.enabled}:${appIcon.file?.absolutePath.orEmpty()}"), AppIconFetcher(appIcon))
     }
 
     override fun handles(model: AppIcon): Boolean {
