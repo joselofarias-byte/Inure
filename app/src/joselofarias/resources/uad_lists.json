@@ -23,6 +23,14 @@
     "labels": [],
     "removal": "Unsafe"
   },
+  "com.google.android.wearable.pixel.aspen": {
+    "list": "Oem",
+    "description": "Fitbit's Connected Fitness feature for the Pixel Watch. Can be safely removed if you don't need/use it.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
   "org.lineageos.recorder": {
     "list": "Oem",
     "description": "LineageOS Voice Recorder App.\nSafe to remove if you don't need it or have replaced it with another app.",
@@ -362,6 +370,14 @@
   "android.ui.overlay.ct": {
     "list": "Aosp",
     "description": "An overlay that customizes Android UI for the China Telecom operator (3rd largest operator in China).\nSafe to remove if you don't live in china or don't use/plan to use this carrier. Often present on ROMs and devices outside of China.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.xiaomi.aiservice": {
+    "list": "Oem",
+    "description": "Xiaomi on-device AI inference engine (HyperOS/MIUI). Runs many ML models (OCR, translation, etc.) in isolated per-model processes. \nEmbeds Xiaomi's OneTrack SDK, which collects OAID, android_id, device fingerprint, region, network type, and per-event usage data, then uploads it encrypted to tracking.*.miui.com. \nAlso embeds XCrash for crash reporting. Downloads AI model updates silently via Android DownloadManager (probably has to do with AI Core). \nRemoving probably breaks HyperOS AI features (I haven't tested) but does not affect core phone, SMS, or data functions.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5629,7 +5645,7 @@
   },
   "com.samsung.android.sm": {
     "list": "Oem",
-    "description": "Smart Manager app\nProvides pretty useless optimizing features using Chinese company Qihoo database.\nAutomatically scans and optimizes data usage to preserve battery levels, manage storage and RAM\nhttps://www.privateinternetaccess.com/blog/android-joselofarias-worried-about-presence-of-chinese-spyware-by-qihoo-360-in-samsung-smartphones-and-tablets/\nhttps://forum.xda-developers.com/galaxy-note-9/help/samsung-services-dialling-home-to-china-t3894033\n",
+    "description": "Smart Manager app\nProvides pretty useless optimizing features using Chinese company Qihoo database.\nAutomatically scans and optimizes data usage to preserve battery levels, manage storage and RAM\nhttps://www.privateinternetaccess.com/blog/android-community-worried-about-presence-of-chinese-spyware-by-qihoo-360-in-samsung-smartphones-and-tablets/\nhttps://forum.xda-developers.com/galaxy-note-9/help/samsung-services-dialling-home-to-china-t3894033\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -41220,7 +41236,7 @@
   },
   "com.blackview.filetrans": {
     "list": "Oem",
-    "description": "Moving Assistant/Data Migration Assistant\nApp used to transfer data from one device to another.\nWARNING: Uninstalling it breaks the App info Settings page on Android 15, Blackview Tab 60 WiFi.",
+    "description": "Moving Assistant/Data Migration Assistant\nApp used to transfer data from one device to another.\nWARNING: Uninstalling it breaks the App info Settings page on Android 15, Blackview Tab 60 WiFi.\nTry disabling instead of uninstalling in case that happens.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -43131,5 +43147,53 @@
     "neededBy": [],
     "labels": [],
     "removal": "Expert"
+  },
+  "com.blackview.systemmanager": {
+    "list": "Oem",
+    "description": "'System Manager'\nA pre-installed 'task killer', which ironically slows down the system. It also has internet and install apps permisions by default, making it a potential backdoor.\nAlthough 'systemmanager' might sound important, disabling it will significantly reduce scroll stuttering. Try disabling instead of uninstalling in case that breaks the App info Settings page.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.blackview.apkupgrade": {
+    "list": "Oem",
+    "description": "System Message\nAdware, sends unwanted promotional notifications.\nTry disabling instead of uninstalling in case that breaks the App info Settings page.\nhttps://www.reddit.com/r/blackview/comments/1mo441x/get_rid_of_system_notification_that_contains_ads/",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.huawei.localBackup": {
+    "list": "Oem",
+    "description": "Backup\nA hidden app, which has storage, location, contacts, SMS, call logs and calendar permissions. Can be uninstalled via Settings.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.aml": {
+    "list": "Oem",
+    "description": "Huawei AML\nA hidden app, which has phone, location and SMS permissions.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.blackview.helper": {
+    "list": "Oem",
+    "description": "DKHelper\nTry disabling instead of uninstalling in case that breaks the App info Settings page.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.softwinner.dragonatt": {
+    "list": "Oem",
+    "description": "DragonAtt",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 }
