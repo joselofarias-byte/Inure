@@ -8,7 +8,7 @@ on:
 
 jobs:
     build:
-        name: Build Release APK
+        name: Build JoseloFarias Debug APK
         runs-on: ubuntu-latest
 
         steps:
@@ -21,42 +21,20 @@ jobs:
                     java-version: '21'
                     distribution: 'temurin'
 
-            -   name: Decode Keystore
-                id: decode_keystore
-                uses: timheuer/base64-to-file@v1
-                with:
-                    fileName: 'keystore/key.jks'
-                    encodedString: ${{ secrets.SIGN_KEY }}
-
             -   name: Accept Android SDK licenses
                 run: yes | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --licenses
 
-            -   name: Build Github Release APK
+            -   name: Build JoseloFarias Debug APK
                 run: |
+                    set -Eeuo pipefail
                     chmod +x ./gradlew
-                    ./gradlew clean assembleJoselofariasRelease --no-build-cache --rerun-tasks
-                env:
-                    SIGNING_KEY_ALIAS: ${{ secrets.ALIAS }}
-                    SIGNING_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-                    SIGNING_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
-
-            -   name: Extract Version Name and Version Code
-                run: |
-                    VERSION_NAME=$(cat app/build.gradle | grep -oP 'versionName "\K[^"]*')
-                    VERSION_CODE=$(cat app/build.gradle | grep -oP 'versionCode \K\d+')
-                    VERSION_NAME=$(echo "$VERSION_NAME" | awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) tolower(substr($i,2));}1')
-                    echo "Version Name: $VERSION_NAME"
-                    echo "Version Code: $VERSION_CODE"
-                    echo "VERSION_NAME=$VERSION_NAME" >> $GITHUB_ENV
-                    echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_ENV
-
-            -   name: Find APK
-                run: |
-                    find app/ -name "*.apk" -exec echo "Found APK: {}" \;
+                    ./gradlew clean assembleJoselofariasDebug --no-build-cache --rerun-tasks --stacktrace
+                    find app/build/outputs/apk -type f -name '*.apk' -size +0c -print
 
             -   name: Archive APKs
                 uses: actions/upload-artifact@v4
                 with:
-                    name: ${{ env.VERSION_NAME }}
-                    path: |
-                        app/build/outputs/apk/joselofarias/release/app-joselofarias-release.apk
+                    name: Inure-JoseloFarias-debug-${{ github.sha }}
+                    path: app/build/outputs/apk/**/*.apk
+                    if-no-files-found: error
+                    retention-days: 14
