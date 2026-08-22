@@ -86,7 +86,11 @@ class ShizukuServiceHelper private constructor() {
     fun unbindUserService() {
         if (!isServiceBound) return
         if (isSupported()) {
-            Shizuku.unbindUserService(userServiceArgs, userServiceConnection, true)
+            try {
+                Shizuku.unbindUserService(userServiceArgs, userServiceConnection, true)
+            } catch (e: IllegalArgumentException) {
+                Log.e(TAG, "unbindUserService: ${e.message}")
+            }
         } else {
             throw RuntimeException("Current Shizuku version is not supported: ${Shizuku.getVersion()}")
         }
