@@ -18,14 +18,12 @@ import androidx.fragment.app.Fragment
 import app.simple.inure.R
 import app.simple.inure.constants.BundleConstants
 import app.simple.inure.constants.Misc
-import app.simple.inure.dialogs.app.FullVersion.Companion.showFullVersion
 import app.simple.inure.dialogs.miscellaneous.Error.Companion.showError
 import app.simple.inure.dialogs.miscellaneous.Warning.Companion.showWarning
 import app.simple.inure.preferences.BehaviourPreferences
 import app.simple.inure.preferences.SharedPreferences.getSharedPreferences
 import app.simple.inure.preferences.SharedPreferences.registerSharedPreferenceChangeListener
 import app.simple.inure.preferences.SharedPreferences.unregisterSharedPreferenceChangeListener
-import app.simple.inure.preferences.TrialPreferences
 import app.simple.inure.ui.panels.Preferences
 import app.simple.inure.util.ParcelUtils.parcelable
 import app.simple.inure.util.ViewUtils
@@ -217,16 +215,6 @@ abstract class ScopedBottomSheetFragment : BottomSheetDialogFragment(),
         layoutTransition = transition
     }
 
-    open fun fullVersionCheck(goBack: Boolean = true): Boolean {
-        return if (TrialPreferences.isAppFullVersionEnabled()) {
-            true
-        } else {
-            childFragmentManager.showFullVersion().setFullVersionCallbacks {
-                if (goBack) {
-                    requireActivity().onBackPressedDispatcher.onBackPressed()
-                }
-            }
-            false
-        }
-    }
+    @Suppress("UNUSED_PARAMETER")
+    open fun fullVersionCheck(goBack: Boolean = true): Boolean = true
 }

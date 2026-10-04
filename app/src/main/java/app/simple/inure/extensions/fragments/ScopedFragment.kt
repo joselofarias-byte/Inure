@@ -31,7 +31,6 @@ import app.simple.inure.apk.utils.PackageUtils
 import app.simple.inure.constants.BundleConstants
 import app.simple.inure.decorations.transitions.DetailsTransitionArc
 import app.simple.inure.decorations.views.FloatingMenuRecyclerView
-import app.simple.inure.dialogs.app.FullVersion.Companion.showFullVersion
 import app.simple.inure.dialogs.app.Sure.Companion.newSureInstance
 import app.simple.inure.dialogs.miscellaneous.Error.Companion.showError
 import app.simple.inure.dialogs.miscellaneous.Loader
@@ -43,7 +42,6 @@ import app.simple.inure.preferences.BehaviourPreferences
 import app.simple.inure.preferences.SharedPreferences.getSharedPreferences
 import app.simple.inure.preferences.SharedPreferences.registerSharedPreferenceChangeListener
 import app.simple.inure.preferences.SharedPreferences.unregisterSharedPreferenceChangeListener
-import app.simple.inure.preferences.TrialPreferences
 import app.simple.inure.ui.panels.AppInfo
 import app.simple.inure.ui.panels.Search
 import app.simple.inure.ui.panels.WebPage
@@ -353,31 +351,11 @@ abstract class ScopedFragment : Fragment(), SharedPreferences.OnSharedPreference
         }
     }
 
-    @Suppress("NOTHING_TO_INLINE")
-    inline fun fullVersionCheck(goBack: Boolean = true): Boolean {
-        return if (TrialPreferences.isAppFullVersionEnabled()) {
-            true
-        } else {
-            childFragmentManager.showFullVersion().setFullVersionCallbacks {
-                if (goBack) {
-                    requireActivity().onBackPressedDispatcher.onBackPressed()
-                }
-            }
-            false
-        }
-    }
+    @Suppress("NOTHING_TO_INLINE", "UNUSED_PARAMETER")
+    inline fun fullVersionCheck(goBack: Boolean = true): Boolean = true
 
-    open fun fullVersionCheck(onClose: () -> Unit): Boolean {
-        return if (TrialPreferences.isAppFullVersionEnabled()) {
-            true
-        } else {
-            childFragmentManager.showFullVersion().setFullVersionCallbacks {
-                onClose()
-            }
-
-            false
-        }
-    }
+    @Suppress("UNUSED_PARAMETER")
+    open fun fullVersionCheck(onClose: () -> Unit): Boolean = true
 
     @Throws(IllegalStateException::class)
     open fun hideLoader() {

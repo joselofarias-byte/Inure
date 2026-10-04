@@ -236,8 +236,14 @@ class AppInfoViewModel(application: Application, private var packageInfo: Packag
                 }
             }
 
-            if (AppUtils.isJoseloFariasFlavor()) {
+            if (AppUtils.isGithubFlavor()) {
                 list.add(Pair(R.drawable.ic_virustotal, R.string.virustotal))
+            }
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                if (packageInfo.isInstalled()) {
+                    list.add(Pair(R.drawable.ic_exit, R.string.recent_exits))
+                }
             }
 
             menuItems.postValue(list)
@@ -254,7 +260,7 @@ class AppInfoViewModel(application: Application, private var packageInfo: Packag
 
             list.add(Pair(R.drawable.ic_play_store, R.string.play_store))
 
-            if (AppUtils.isJoseloFariasFlavor() || AppUtils.isBetaFlavor()) {
+            if (AppUtils.isGithubFlavor() || AppUtils.isBetaFlavor()) {
                 if (packageInfo.isUnlocker().invert()) {
                     list.add(Pair(R.drawable.ic_fdroid, R.string.fdroid))
                 }
@@ -298,7 +304,7 @@ class AppInfoViewModel(application: Application, private var packageInfo: Packag
 
         add(Pair(R.drawable.ic_broom, R.string.clear_cache))
 
-        if (AppUtils.isJoseloFariasFlavor() || AppUtils.isBetaFlavor() || AppUtils.isDebug()) {
+        if (AppUtils.isGithubFlavor() || AppUtils.isBetaFlavor() || AppUtils.isDebug()) {
             if (packageInfo.isPackageBloat()) {
                 add(Pair(R.drawable.ic_recycling, R.string.debloat))
             }
@@ -341,7 +347,7 @@ class AppInfoViewModel(application: Application, private var packageInfo: Packag
 
         add(Pair(R.drawable.ic_broom, R.string.clear_cache))
 
-        if (AppUtils.isJoseloFariasFlavor() || AppUtils.isBetaFlavor() || AppUtils.isDebug()) {
+        if (AppUtils.isGithubFlavor() || AppUtils.isBetaFlavor() || AppUtils.isDebug()) {
             if (packageInfo.isPackageBloat()) {
                 add(Pair(R.drawable.ic_recycling, R.string.debloat))
             }

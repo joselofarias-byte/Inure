@@ -61,7 +61,6 @@
     <string name="install_location">Local de instalação</string>
     <string name="minimum_sdk">SDK Mínimo</string>
     <string name="target_sdk">Alvo SDK</string>
-    <string name="uid">UID</string>
     <string name="install_date">Data de Instalação</string>
     <string name="update_date">Data de atualização</string>
     <string name="permissions">Permissões</string>
@@ -178,7 +177,6 @@
     <string name="setup">Configurações</string>
     <string name="instant">Instante</string>
     <string name="runtime">Tempo de execução</string>
-    <string name="oem">OEM</string>
     <string name="vendor_privileged">Fornecedor com Privilégio</string>
     <string name="text_classifier">Texto Classificado</string>
     <string name="wellbeing">Bem-estar</string>
@@ -187,7 +185,6 @@
     <string name="incident_report_approver">Aprovador do Relatório de Incidente</string>
     <string name="app_predictor">Previsor do App</string>
     <string name="retail_demo">Demonstração retail</string>
-    <string name="apex">Ápice</string>
     <string name="auto">Automático</string>
     <string name="internal">Interno</string>
     <string name="prefer_external">Preferência Externa</string>
@@ -796,5 +793,10 @@
     <string name="foreground">Primeiro plano</string>
     <string name="granted_by_default">Concedido por padrão</string>
     <string name="user_set">Conjunto de Usuários</string>
+    <string name="other_apps">Outros Apps</string>
     <string name="export_icon">Exportar Ícone</string>
+    <string name="public_source_dir">Public Source Directory</string>
+    <string name="device_protected_data_dir">Device-Protected Data Directory</string>
+    <string name="external_data_dir">External Data Directory</string>
+    <string name="recent_exits">Recent Exits</string>
 </resources>

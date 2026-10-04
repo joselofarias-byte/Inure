@@ -45,6 +45,7 @@ import app.simple.inure.ui.preferences.mainscreens.ConfigurationScreen
 import app.simple.inure.ui.preferences.mainscreens.DevelopmentScreen
 import app.simple.inure.ui.preferences.mainscreens.FormattingScreen
 import app.simple.inure.ui.preferences.mainscreens.LayoutsScreen
+import app.simple.inure.ui.preferences.mainscreens.OtherAppsScreen
 import app.simple.inure.ui.preferences.mainscreens.ShellScreen
 import app.simple.inure.ui.preferences.mainscreens.TerminalScreen
 import app.simple.inure.ui.preferences.subscreens.AccentColor
@@ -140,8 +141,8 @@ class Preferences : SearchBarScopedFragment() {
                             openFragmentLinear(AboutScreen.newInstance(), imageView, AboutScreen.TAG)
                         }
 
-                        R.string.purchase -> {
-                            openFragmentSlide(Trial.newInstance(), Trial.TAG)
+                        R.string.other_apps -> {
+                            openFragmentLinear(OtherAppsScreen.newInstance(), imageView, OtherAppsScreen.TAG)
                         }
                     }
                 }
