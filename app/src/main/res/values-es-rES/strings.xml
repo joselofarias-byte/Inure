@@ -61,7 +61,6 @@
     <string name="install_location">Ubicación de la instalación</string>
     <string name="minimum_sdk">SDK Mínimo</string>
     <string name="target_sdk">SDK de destino</string>
-    <string name="uid">UID</string>
     <string name="install_date">Fecha de instalación</string>
     <string name="update_date">Fecha de actualización</string>
     <string name="permissions">Permisos</string>
@@ -178,7 +177,6 @@
     <string name="setup">Configuración</string>
     <string name="instant">Instantáneo</string>
     <string name="runtime">Tiempo de ejecución</string>
-    <string name="oem">OEM</string>
     <string name="vendor_privileged">Privilegiado por el fabricante</string>
     <string name="text_classifier">Clasificador de texto</string>
     <string name="wellbeing">Bienestar</string>
@@ -187,7 +185,6 @@
     <string name="incident_report_approver">Aprobador de informes de incidentes</string>
     <string name="app_predictor">Predictor de apps</string>
     <string name="retail_demo">Modo de demostración</string>
-    <string name="apex">Ápice</string>
     <string name="auto">Automático</string>
     <string name="internal">Interno</string>
     <string name="prefer_external">Externo preferido</string>
@@ -796,10 +793,25 @@
     <string name="foreground">Primer plano</string>
     <string name="granted_by_default">Concedido por defecto</string>
     <string name="user_set">Conjunto de usuario</string>
+    <string name="other_apps">Otras aplicaciones</string>
     <string name="export_icon">Icono de exportación</string>
+    <string name="public_source_dir">Directorio de código fuente público</string>
+    <string name="device_protected_data_dir">Directorio de datos protegidos del dispositivo</string>
+    <string name="external_data_dir">Directorio de datos externos</string>
+    <string name="recent_exits">Salidas recientes</string>
+
     <string name="scan_folders">Carpetas de búsqueda de APK</string>
     <string name="scan_folders_desc">Solo se analizan las carpetas seleccionadas. Toca para agregar otra.</string>
     <string name="scan_folders_none">No hay carpetas seleccionadas</string>
     <string name="scan_folder_invalid">No se puede acceder a la carpeta seleccionada como una ruta local.</string>
     <string name="clear_scan_folders">Vaciar carpetas de búsqueda</string>
+    <string name="term_key_esc">Escape</string>
+    <string name="term_key_tab">Tabulador</string>
+    <string name="term_key_ctrl">Control</string>
+    <string name="term_key_alt">Alt</string>
+    <string name="term_key_shift">Mayúsculas</string>
+    <string name="term_key_left">Flecha izquierda</string>
+    <string name="term_key_up">Flecha arriba</string>
+    <string name="term_key_down">Flecha abajo</string>
+    <string name="term_key_right">Flecha derecha</string>
 </resources>

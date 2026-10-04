@@ -9,19 +9,14 @@ import android.util.Log
 import android.view.KeyEvent
 import android.widget.FrameLayout
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import app.simple.inure.R
 import app.simple.inure.constants.ShortcutConstants
 import app.simple.inure.constants.ThemeConstants
 import app.simple.inure.constants.Warnings
 import app.simple.inure.crash.CrashReport
 import app.simple.inure.decorations.theme.ThemeCoordinatorLayout
-import app.simple.inure.dialogs.app.License.Companion.showLicense
 import app.simple.inure.dialogs.batch.BatchExtract.Companion.showBatchExtract
 import app.simple.inure.extensions.activities.BaseActivity
 import app.simple.inure.preferences.AppearancePreferences
@@ -29,7 +24,6 @@ import app.simple.inure.preferences.ConfigurationPreferences
 import app.simple.inure.preferences.DevelopmentPreferences
 import app.simple.inure.preferences.MainPreferences
 import app.simple.inure.preferences.MusicPreferences
-import app.simple.inure.preferences.TrialPreferences
 import app.simple.inure.terminal.Term
 import app.simple.inure.themes.manager.Theme
 import app.simple.inure.themes.manager.ThemeManager
@@ -55,12 +49,9 @@ import app.simple.inure.ui.subpanels.TaggedApps
 import app.simple.inure.ui.viewers.AudioPlayer
 import app.simple.inure.util.ActivityUtils.getTopFragment
 import app.simple.inure.util.AppUtils
-import app.simple.inure.util.AppUtils.isNewerUnlocker
 import app.simple.inure.util.ConditionUtils.invert
 import app.simple.inure.util.NullSafety.isNull
-import app.simple.inure.viewmodels.launcher.LauncherViewModel
 import com.topjohnwu.superuser.ipc.RootService
-import kotlinx.coroutines.launch
 import java.time.ZonedDateTime
 import java.util.Calendar
 import java.util.TimeZone
@@ -69,8 +60,6 @@ class MainActivity : BaseActivity() {
 
     private lateinit var container: ThemeCoordinatorLayout
     private lateinit var content: FrameLayout
-
-    private val launcherViewModel: LauncherViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,37 +80,7 @@ class MainActivity : BaseActivity() {
             Log.d("MainActivity", "savedInstanceState not null")
         }
 
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                launcherViewModel.initCheck()
-            }
-        }
-
-        launcherViewModel.getShouldVerify().observe(this@MainActivity) { it ->
-            if (it) {
-                if (applicationContext.isNewerUnlocker()) {
-                    supportFragmentManager.showLicense()
-                } else {
-                    if (TrialPreferences.isFullVersion().invert()) {
-                        kotlin.runCatching {
-                            if (TrialPreferences.setFullVersion(value = true)) {
-                                showWarning(R.string.full_version_activated, goBack = false)
-                            }
-                        }.getOrElse {
-                            it.printStackTrace()
-                        }
-                    }
-                }
-            } else {
-                Log.i("License", "Verification not required")
-            }
-        }
-
-        launcherViewModel.getWarning().observe(this@MainActivity) {
-            showWarning(Warnings.getInvalidUnlockerWarning(), goBack = false)
-            TrialPreferences.setFullVersion(false)
-        }
-    }
+        // FOSS fork: no commercial licence/unlocker verification.
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)

@@ -42,7 +42,7 @@ set -e
     APK="$(find app/build/outputs/apk/joselofarias/debug -maxdepth 1 -type f -name '*.apk' -print -quit 2>/dev/null || true)"
     if [[ -n "$APK" ]]; then
         ls -lh "$APK"
-        OUT="$DOWNLOAD/Inure-JoseloFarias-build107.1.0-debug.apk"
+        OUT="$DOWNLOAD/Inure-JoseloFarias-build107.2.4-debug.apk"
         cp -f "$APK" "$OUT"
         printf 'APK_COPIADO=%s\n' "$OUT"
     else

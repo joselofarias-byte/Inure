@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import app.simple.inure.R
 import app.simple.inure.constants.Colors
-import app.simple.inure.decorations.overscroll.HorizontalListViewHolder
+import app.simple.inure.decorations.overscroll.VerticalListViewHolder
 import app.simple.inure.decorations.views.TagChip
 import app.simple.inure.preferences.AccessibilityPreferences
 import app.simple.inure.preferences.AppearancePreferences
@@ -61,10 +61,11 @@ class AdapterTags(private val tags: ArrayList<String>, private val showNewTag: B
                 holder.tag.setChipColor(AppearancePreferences.getAccentColor(), true)
             } else {
                 if (AccessibilityPreferences.isColorfulIcons()) {
-                    try {
-                        holder.tag.setChipColor(Colors.getColors()[position], true)
-                    } catch (_: IndexOutOfBoundsException) {
-                        holder.tag.setChipColor(Colors.getColors()[position - Colors.getColors().size], true)
+                    val colors = Colors.getColors()
+
+                    if (colors.isNotEmpty()) {
+                        val safeIndex = position % colors.size
+                        holder.tag.setChipColor(colors[safeIndex], true)
                     }
                 } else {
                     holder.tag.setDefaultChipColor()
@@ -91,7 +92,7 @@ class AdapterTags(private val tags: ArrayList<String>, private val showNewTag: B
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (tags.size == 0) {
+        return if (tags.isEmpty()) {
             TYPE_ADD
         } else {
             if (position == tags.size) {
@@ -102,7 +103,7 @@ class AdapterTags(private val tags: ArrayList<String>, private val showNewTag: B
         }
     }
 
-    inner class Holder(itemView: View) : HorizontalListViewHolder(itemView) {
+    inner class Holder(itemView: View) : VerticalListViewHolder(itemView) {
         val tag: TagChip = itemView.findViewById(R.id.tag_chip)
     }
 

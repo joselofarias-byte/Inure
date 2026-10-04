@@ -17,7 +17,6 @@ import app.simple.inure.popups.home.PopupMenuLayout
 import app.simple.inure.preferences.AccessibilityPreferences
 import app.simple.inure.preferences.DevelopmentPreferences
 import app.simple.inure.preferences.HomePreferences
-import app.simple.inure.preferences.TrialPreferences
 import app.simple.inure.util.ArrayUtils.circularGet
 import app.simple.inure.util.ConditionUtils.isZero
 import app.simple.inure.util.RecyclerViewUtils
@@ -85,18 +84,10 @@ class AdapterHome(private val list: List<Pair<Int, Int>>) : RecyclerView.Adapter
                 adapterHomeMenuCallbacks.onMenuItemClicked(list[position].second, holder.icon)
             }
         } else if (holder is Header) {
-            if (TrialPreferences.isFullVersion()) {
-                holder.trial.visibility = View.GONE
-            } else {
-                holder.trial.visibility = View.VISIBLE
-            }
+            holder.trial.visibility = View.GONE
 
             holder.appIcon.setOnClickListener {
                 adapterHomeMenuCallbacks.onMenuItemClicked(R.string.app_name, holder.appIcon)
-            }
-
-            holder.trial.setOnClickListener {
-                adapterHomeMenuCallbacks.onMenuItemClicked(R.string.purchase, holder.trial)
             }
 
             holder.search.setOnClickListener {

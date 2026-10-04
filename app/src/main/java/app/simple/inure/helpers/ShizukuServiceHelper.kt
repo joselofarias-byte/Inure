@@ -89,6 +89,7 @@ class ShizukuServiceHelper private constructor() {
             try {
                 Shizuku.unbindUserService(userServiceArgs, userServiceConnection, true)
             } catch (e: IllegalArgumentException) {
+                // swallow IllegalArgumentException when the service is not bound
                 Log.e(TAG, "unbindUserService: ${e.message}")
             }
         } else {
@@ -96,6 +97,7 @@ class ShizukuServiceHelper private constructor() {
         }
     }
 
+    @Suppress("LiftReturnOrAssignment", "CascadeIf")
     fun isRootMode(): Boolean {
         if (Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED) {
             val uid = Shizuku.getUid()

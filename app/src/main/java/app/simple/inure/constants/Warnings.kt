@@ -127,4 +127,11 @@ object Warnings {
      * Invalid file and application data state. Please check if the file is valid and the application data is correct.
      */
     const val INVALID_FILE_AND_APP_DATA = "Invalid file and application data state. Please check if the file is valid and the application data is correct."
+
+    /**
+     * DUMP permission not granted. Please grant the DUMP permission to Inure App Manager from Permissions in order to use this feature.
+     */
+    const val DUMP_PERMISSION_NOT_GRANTED = "DUMP permission not granted. Please grant the DUMP permission to " +
+            "Inure App Manager from Permissions in order to use this feature.\n\n" +
+            "Or use this command in ADB:\n\nadb shell pm grant app.simple.inure android.permission.DUMP"
 }

@@ -60,7 +60,6 @@
     <string name="install_location">Install Location</string>
     <string name="minimum_sdk">Minimum SDK</string>
     <string name="target_sdk">Target SDK</string>
-    <string name="uid">UID</string>
     <string name="install_date">Install Date</string>
     <string name="update_date">Update Date</string>
     <string name="permissions">Permissions</string>
@@ -177,7 +176,6 @@
     <string name="setup">Setup</string>
     <string name="instant">Instant</string>
     <string name="runtime">Runtime</string>
-    <string name="oem">OEM</string>
     <string name="vendor_privileged">Vendor Privileged</string>
     <string name="text_classifier">Text Classifier</string>
     <string name="wellbeing">Wellbeing</string>
@@ -186,7 +184,6 @@
     <string name="incident_report_approver">Incident Report Approver</string>
     <string name="app_predictor">App Predictor</string>
     <string name="retail_demo">Retail Demo</string>
-    <string name="apex">Apex</string>
     <string name="auto">Auto</string>
     <string name="internal">Internal</string>
     <string name="prefer_external">External Preferred</string>
@@ -795,28 +792,25 @@
     <string name="foreground">Foreground</string>
     <string name="granted_by_default">Granted By Default</string>
     <string name="user_set">User Set</string>
+    <string name="other_apps">Other Apps</string>
     <string name="export_icon">Export Icon</string>
+    <string name="public_source_dir">Public Source Directory</string>
+    <string name="device_protected_data_dir">Device-Protected Data Directory</string>
+    <string name="external_data_dir">External Data Directory</string>
+    <string name="recent_exits">Recent Exits</string>
+
     <string name="scan_folders">APK scan folders</string>
     <string name="scan_folders_desc">Only selected folders are scanned. Tap to add another folder.</string>
     <string name="scan_folders_none">No scan folders selected</string>
     <string name="scan_folder_invalid">The selected folder cannot be accessed as a local storage path.</string>
     <string name="clear_scan_folders">Clear scan folders</string>
-
-    <!-- Terminal extra keys -->
     <string name="term_key_esc">Escape</string>
     <string name="term_key_tab">Tab</string>
     <string name="term_key_ctrl">Control</string>
     <string name="term_key_alt">Alt</string>
     <string name="term_key_shift">Shift</string>
-    <string name="term_key_left">Flecha izquierda</string>
-    <string name="term_key_up">Flecha arriba</string>
-    <string name="term_key_down">Flecha abajo</string>
-    <string name="term_key_right">Flecha derecha</string>
-    <string name="shizuku_no_response_title">Shizuku no respondió</string>
-    <string name="shizuku_no_response_message">No se pudo iniciar rish porque Shizuku no respondió. Podés reintentar o abrir Shizuku. El shell normal sigue disponible.</string>
-    <string name="shizuku_retry">Reintentar</string>
-    <string name="shizuku_open">Abrir Shizuku</string>
-    <string name="open_with">Open with</string>
-    <string name="move">Move</string>
-    <string name="rename">Rename</string>
+    <string name="term_key_left">Left arrow</string>
+    <string name="term_key_up">Up arrow</string>
+    <string name="term_key_down">Down arrow</string>
+    <string name="term_key_right">Right arrow</string>
 </resources>

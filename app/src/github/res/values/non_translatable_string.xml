@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="google" translatable="false">Google</string>
+    <string name="debloat_help" translatable="false">https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/wiki/FAQ</string>
+    <string name="fdroid" translatable="false">F-Droid</string>
+    <string name="izzyondroid" translatable="false">IzzyOnDroid</string>
+</resources>
