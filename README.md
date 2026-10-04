@@ -1,36 +1,41 @@
 # Inure — JoseloFarias fork
 
-Fork independiente de Inure mantenido por **JoseloFarias**, con identidad y paquete propios para administración avanzada de aplicaciones Android.
+Edición independiente de Inure mantenida por **JoseloFarias**, reconstruida sobre upstream **build107.2.4** y distribuida con paquete propio.
 
-## Identidad del fork
+## Identidad
 
-- Autor/mantenimiento: **JoseloFarias**.
-- Paquete propio: `app.simple.inure.joselofarias`.
-- Branding diferenciado del proyecto original.
-- Conservación explícita de atribuciones y licencia GPL aplicable.
+- Aplicación: **Inure JoseloFarias**
+- Paquete: `app.simple.inure.joselofarias`
+- Flavor: `joselofarias`
+- Base upstream: `Hamza417/Inure build107.2.4`
+- Licencia: GPLv3; se conservan atribuciones y avisos del proyecto original.
 
-## Objetivos
+## Diferencias mantenidas
 
-- Mantener acceso completo a funciones sin dependencias comerciales innecesarias.
-- Eliminar telemetría y componentes no requeridos por el funcionamiento principal.
-- Mejorar compatibilidad, estabilidad y flujos de administración de APK/apps.
-- Mantener escaneo de APK por carpeta seleccionada y demás mejoras propias.
+- Edición FOSS feature-complete, sin trial, compras, Unlocker ni verificación comercial.
+- Reutiliza la superficie GitHub/FOSS de upstream, incluyendo Debloat y VirusTotal.
+- Búsqueda de APK limitada a Downloads y carpetas elegidas por el usuario.
+- Terminal con fila adicional ESC / TAB / CTRL / ALT / SHIFT / flechas.
+- Identidad visual y paquete separados del upstream.
+- CI específico para `assembleJoselofariasDebug`.
 
-## Desarrollo
+## Compilar
 
 ```bash
 git clone https://github.com/joselofarias-byte/Inure.git
 cd Inure
-./gradlew assembleDebug
+./gradlew :app:assembleJoselofariasDebug
 ```
+
+También se incluye `build-joselofarias.sh` para el flujo Termux/Proot usado por este fork.
 
 ## Estado
 
-Fork en mantenimiento activo. Las diferencias específicas respecto al upstream deben mantenerse documentadas y verificables.
+El mantenimiento toma upstream como base y reaplica únicamente el delta propio verificable, evitando conservar código comercial o divergencias sin utilidad.
 
 ## Origen y licencia
 
-Este repositorio deriva de Inure y conserva su atribución/licencia. Consulte `LICENSE`, `FORK_NOTICE.md` y el historial Git para detalles completos.
+Proyecto original: **Inure App Manager**, por **Hamza417**. Consulte `LICENSE`, `FORK_NOTICE.md` y el historial Git para atribución y cambios.
 
 ---
 **Mantenimiento del fork:** JoseloFarias
