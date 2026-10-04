@@ -39,10 +39,12 @@ jobs:
           ./gradlew --version
 
       - name: Accept Android SDK licenses
-        run: yes | "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --licenses || true
+        run: |
+          yes | "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --licenses || true
 
       - name: Install required NDK
-        run: "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" "ndk;29.0.13599879"
+        run: |
+          "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" "ndk;29.0.13599879"
 
       - name: Assemble unsigned debug APK
         run: ./gradlew :app:assembleJoselofariasDebug --no-daemon --stacktrace
