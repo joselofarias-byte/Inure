@@ -9,8 +9,8 @@ import java.util.LinkedHashSet
 
 object ApkBrowserPreferences {
 
-    private const val CUSTOM_APK_PATHS = "custom_apk_paths"
-    private const val DOWNLOADS_ENABLED = "apk_downloads_enabled"
+    const val CUSTOM_APK_PATHS = "custom_apk_paths"
+    const val DOWNLOADS_ENABLED = "apk_downloads_enabled"
     private const val SOURCE_MODEL_MIGRATED = "apk_source_model_migrated_v2"
 
 

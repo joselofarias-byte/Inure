@@ -81,6 +81,7 @@ class MainActivity : BaseActivity() {
         }
 
         // FOSS fork: no commercial licence/unlocker verification.
+    }
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
@@ -288,15 +289,6 @@ class MainActivity : BaseActivity() {
                 recreate() // update the language in context wrapper
             }
 
-            TrialPreferences.HAS_LICENSE_KEY -> {
-                if (TrialPreferences.isFullVersion()) {
-                    if (TrialPreferences.isUnlockerVerificationRequired().invert()) {
-                        showWarning(R.string.full_version_activated, goBack = false)
-                    } else {
-                        showWarning(R.string.unlocker_not_installed, goBack = false)
-                    }
-                }
-            }
         }
     }
 

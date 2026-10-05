@@ -152,6 +152,8 @@ public class EmulatorView extends View implements GestureDetector.OnGestureListe
     private int fnKeyCode;
     private boolean isSelectingText = false;
     private boolean isControlKeySent = false;
+    private boolean isAltKeySent;
+    private boolean isShiftKeySent;
     /**
      * Our message handler class. Implements a periodic callback.
      */
@@ -1193,6 +1195,16 @@ public class EmulatorView extends View implements GestureDetector.OnGestureListe
             keyListener.handleControlKey(false);
             invalidate();
         }
+        if (isAltKeySent) {
+            isAltKeySent = false;
+            keyListener.handleAltKey(false);
+            invalidate();
+        }
+        if (isShiftKeySent) {
+            isShiftKeySent = false;
+            keyListener.handleShiftKey(false);
+            invalidate();
+        }
         if (isFnKeySent) {
             Log.i(TAG, "Clearing function key status");
             isFnKeySent = false;
@@ -1590,6 +1602,20 @@ public class EmulatorView extends View implements GestureDetector.OnGestureListe
         }
     }
     
+    /** Arm Alt for the next terminal key, like the extra-row Ctrl key. */
+    public void sendAltKey() {
+        isAltKeySent = true;
+        keyListener.handleAltKey(true);
+        invalidate();
+    }
+
+    /** Arm Shift for the next terminal key, like the extra-row Ctrl key. */
+    public void sendShiftKey() {
+        isShiftKeySent = true;
+        keyListener.handleShiftKey(true);
+        invalidate();
+    }
+
     /**
      * Send a Ctrl key event to the terminal.
      */
