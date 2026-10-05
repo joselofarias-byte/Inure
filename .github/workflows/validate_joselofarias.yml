@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - master
+      - director/inure-10724-joselofarias-cleanup
   workflow_dispatch:
 
 permissions:
