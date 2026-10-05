@@ -46,7 +46,6 @@ import app.simple.inure.dialogs.miscellaneous.Error.Companion.showError
 import app.simple.inure.dialogs.miscellaneous.Loader
 import app.simple.inure.dialogs.miscellaneous.Warning.Companion.showWarning
 import app.simple.inure.interfaces.fragments.SureCallbacks
-import app.simple.inure.preferences.ApkBrowserPreferences
 import app.simple.inure.preferences.AppearancePreferences
 import app.simple.inure.preferences.BehaviourPreferences
 import app.simple.inure.preferences.ConfigurationPreferences
@@ -201,7 +200,6 @@ open class BaseActivity : AppCompatActivity(),
                     StackTraceDatabase.init(applicationContext)
 
                     if (SDCard.findSdCardPath(applicationContext).isNull()) {
-                        ApkBrowserPreferences.setExternalStorage(false)
                         ConfigurationPreferences.setExternalStorage(false)
 
                         Log.d("BaseActivity", "No external storage found")
