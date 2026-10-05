@@ -408,6 +408,24 @@ class TermKeyListener {
         updateCursorMode();
     }
     
+    public void handleAltKey(boolean down) {
+        if (down) {
+            altKey.onPress();
+        } else {
+            altKey.onRelease();
+        }
+        updateCursorMode();
+    }
+
+    public void handleShiftKey(boolean down) {
+        if (down) {
+            capKey.onPress();
+        } else {
+            capKey.onRelease();
+        }
+        updateCursorMode();
+    }
+
     public void handleFnKey(boolean down) {
         if (down) {
             fnKey.onPress();
